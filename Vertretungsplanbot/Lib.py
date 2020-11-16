@@ -293,6 +293,8 @@ def searchVertretungen(Schoolclass, FormDate, path):
     csvfile = open("Vertetungen.csv", "r")
     reader = csv.reader(csvfile, delimiter = ";")
     
+    classPath = path + Schoolclass
+
     if skip == True:
         os.mkdir(classPath)
 
