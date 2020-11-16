@@ -8,6 +8,9 @@ from datetime import datetime
 today = date.today()
 now = datetime.now()
 
+global skip
+skip = False
+
 def Download():
     i = 0
     ErrorPa = False
@@ -286,9 +289,25 @@ def readInfofile(path):
 #print("")
 
 def searchVertretungen(Schoolclass, FormDate, path):
+    global skip
     csvfile = open("Vertetungen.csv", "r")
     reader = csv.reader(csvfile, delimiter = ";")
+    
+        if skip == True:
+            os.mkdir(classPath)
 
+        while skip == False:
+            create = input("Create New Directory in " + path + " (y/n)")
+            if create == "y" or create == "Y":
+                os.mkdir(classPath)
+                skip = True
+            elif create == "n" or create == "N":
+                print("Stopping...")
+                skip = True
+            else:
+                print("invalid answer")
+                skip = False
+    
     verToday = open(path + Schoolclass + "/" + "Vertetungen_Heute.csv", "w")
     todaywriter = csv.writer(verToday, delimiter = ";")
 
